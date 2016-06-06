@@ -1,14 +1,14 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionController::TestCase
-  def task
-    @task ||= tasks :one
+  def setup
+    @task = create :task
+    @attributes = attributes_for :task
   end
 
   def test_index
     get :index
     assert_response :success
-    assert_not_nil assigns(:tasks)
   end
 
   def test_new
@@ -17,33 +17,34 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   def test_create
-    assert_difference('Task.count') do
-      post :create, task: { name: task.name }
-    end
+    post :create, task: @attributes
+    assert_response :redirect
 
-    assert_redirected_to task_path(assigns(:task))
+    task = Task.find_by(@attributes)
+    assert { task.name == @attributes[:name] }
   end
 
   def test_show
-    get :show, id: task
+    get :show, id: @task.id
     assert_response :success
   end
 
   def test_edit
-    get :edit, id: task
+    get :edit, id: @task.id
     assert_response :success
   end
 
   def test_update
-    put :update, id: task, task: { name: task.name }
-    assert_redirected_to task_path(assigns(:task))
+    put :update, id: @task.id, task: @attributes
+    assert_response :redirect
   end
 
   def test_destroy
-    assert_difference('Task.count', -1) do
-      delete :destroy, id: task
-    end
+    assert { Task.where(id: @task.id).present? }
 
-    assert_redirected_to tasks_path
+    delete :destroy, id: @task.id
+    assert_response :redirect
+
+    assert { Task.where(id: @task.id).empty? }
   end
 end
