@@ -1,9 +1,9 @@
-%h1 Listing tasks
+%h1= t('listing_tasks')
 
 %table.table.table-bordered.table-hover.col-md-12
   %thead
     %tr.row
-      %th.col-md-9 Name
+      %th.col-md-9= t('name')
       %th.col-md-1
       %th.col-md-1
       %th.col-md-1
@@ -19,7 +19,7 @@
           = link_to edit_task_path(task) do
             %i.glyphicon.glyphicon-pencil
         %td
-          = link_to task, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+          = link_to task, method: :delete, data: { confirm: I18n.t('sure') } do
             %i.glyphicon.glyphicon-trash
 %br
-= link_to 'New Task', new_task_path
+= link_to t('new_task'), new_task_path

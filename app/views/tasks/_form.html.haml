@@ -5,5 +5,5 @@
       %ul
         - @task.errors.full_messages.each do |msg|
           %li= msg
-  = f.input :name, label: 'input name'
+  = f.input :name, label: t('input_name')
   = f.button :submit
