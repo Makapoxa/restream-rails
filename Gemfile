@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.6'
 gem 'pg'
+gem 'rails_12factor', group: :production
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sprockets'
 gem 'sass-rails', '>= 3.2'
