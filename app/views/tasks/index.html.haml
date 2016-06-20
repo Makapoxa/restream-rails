@@ -1,21 +1,25 @@
-%h1 Listing tasks
+%h1= t('listing_tasks')
 
-%table
+%table.table.table-bordered.table-hover.col-md-12
   %thead
-    %tr
-      %th Name
-      %th
-      %th
-      %th
+    %tr.row
+      %th.col-md-9= t('name')
+      %th.col-md-1
+      %th.col-md-1
+      %th.col-md-1
 
   %tbody
     - @tasks.each do |task|
-      %tr
+      %tr.row
         %td= task.name
-        %td= link_to 'Show', task
-        %td= link_to 'Edit', edit_task_path(task)
-        %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        %td
+          = link_to task do
+            %i.glyphicon.glyphicon-eye-open
+        %td
+          = link_to edit_task_path(task) do
+            %i.glyphicon.glyphicon-pencil
+        %td
+          = link_to task, method: :delete, data: { confirm: I18n.t('sure') } do
+            %i.glyphicon.glyphicon-trash
 %br
-
-= link_to 'New Task', new_task_path
+= link_to t('new_task'), new_task_path
